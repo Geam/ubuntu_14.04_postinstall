@@ -1,0 +1,17 @@
+#!/bin/bash
+
+to_install()
+{
+	packages=$(cat datas/to_install.list)
+	echo "Installing favorites packages"
+	sudo apt-get install -y $packages
+	unset packages
+}
+
+to_remove()
+{
+	packages=$(cat datas/to_remove.list)
+	echo "Installing favorites packages"
+	sudo apt-get remove -y $packages
+	unset packages
+}

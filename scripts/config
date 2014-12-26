@@ -1,0 +1,88 @@
+#!/bin/bash
+
+config()
+{
+	config_qwerty-fr
+	config_shell
+	config_unity
+	config_vim
+}
+
+config_qwerty-fr()
+{
+	if [[ ! -e /tmp/xkb-qwerty-fr_0.5_all.deb ]]; then
+		cd /tmp
+		wget http://marin.jb.free.fr/qwerty-fr/xkb-qwerty-fr_0.5_all.deb
+	fi
+	sudo dpkg --install /tmp/xkb-qwerty-fr_0.5_all.deb
+	setxkbmap us_qwerty-fr
+}
+
+config_shell()
+{
+	get_github_config
+	cd
+	if [[ -e .aliases ]]; then
+		rm .aliases
+	fi
+	if [[ -e .bashrc ]]; then
+		mv .bashrc .bashrc_default
+	fi
+	if [[ -e .zsh ]]; then
+		rm -rf .zsh
+	fi
+	if [[ -e .zshrc ]]; then
+		rm .zshrc
+	fi
+	ln -s .dotfiles/.aliases
+	ln -s .dotfiles/.bashrc
+	ln -s .dotfiles/.zsh
+	ln -s .dotfiles/.zshrc
+}
+
+config_unity()
+{
+	# virtual desktop
+	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ vsize 2
+	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 2
+
+	# dash in full screen
+	gsettings set com.canonical.Unity form-factor Netbook
+
+	# reduce launcher icon size
+	gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 32
+
+	# replace nautilus with nemo
+	gsettings set com.canonical.Unity.Launcher favorites "`gsettings get com.canonical.Unity.Launcher favorites | sed 's/nautilus.desktop/nemo.desktop/'`"
+	xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
+	gsettings set org.gnome.desktop.background show-desktop-icons false
+	gsettings set org.nemo.desktop show-desktop-icons true
+	gsettings set org.nemo.preferences default-folder-viewer list-view
+}
+
+config_vim()
+{
+	get_github_config
+	cd
+	if [[ -e .vim ]]; then
+		rm -rf .vim
+	fi
+	if [[ -e .vimrc ]]; then
+		rm .vimrc
+	fi
+	ln -s .dotfiles/.vim
+	ln -s .dotfiles/.vimrc
+}
+
+get_github_config()
+{
+	if [[ ! -e ~/.dotfiles ]]; then
+		where=$(pwd)
+		cd
+		git clone https://github.com/geam/42_config .dotfiles
+		cd .dotfiles
+		git checkout linux
+		cd $where
+		unset where
+	fi
+}

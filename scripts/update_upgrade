@@ -1,0 +1,19 @@
+#!/bin/bash
+
+update()
+{
+	# check if we've already update package list
+	# if no, then do it
+	if [[ $first = "yes" ]]; then
+		echo "Update package list"
+		sudo apt-get update
+		first="no"
+	fi
+}
+
+upgrade()
+{
+	echo "Upgrade package"
+	# upgrade package
+	sudo apt-get upgrade -y
+}
