@@ -1,0 +1,11 @@
+#!/bin/bash
+
+packages=( "git" )
+
+config()
+{
+    echo "config git"
+    git config --global user.email mdelage@student.42.fr
+    git config --global user.name Marc Delage
+    git config --global push.default simple
+}

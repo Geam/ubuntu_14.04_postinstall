@@ -15,8 +15,8 @@ main_menu()
 			case $opt in
 				${options[0]})
 					update
-					to_install
-					to_remove
+					to_install_all
+					to_remove_all
 					upgrade
 					config
 					;;
