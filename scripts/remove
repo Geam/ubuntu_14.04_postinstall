@@ -40,5 +40,5 @@ to_remove_all()
 to_remove_sub()
 {
 	echo "Deleting $@"
-	sudo apt-get remove -y $@
+	sudo apt-get remove -y $@ <<< $passwd
 }

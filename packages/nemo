@@ -4,5 +4,20 @@ packages=( "nemo" )
 
 config()
 {
-    echo ""
+	# replace nautilus by nem
+	gsettings set com.canonical.Unity.Launcher favorites "`gsettings get com.canonical.Unity.Launcher favorites | sed 's/nautilus.desktop/nemo.desktop/'`"
+	xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
+	gsettings set org.gnome.desktop.background show-desktop-icons false
+	gsettings set org.nemo.desktop show-desktop-icons true
+
+	# hide desktop icon (yes just over it's place on true but if put on false
+	# 'super' doesn't open dash :-/
+	gsettings set org.nemo.desktop computer-icon-visible false
+	gsettings set org.nemo.desktop home-icon-visible false
+	gsettings set org.nemo.desktop trash-icon-visible false
+	gsettings set org.nemo.desktop volumes-visible false
+	gsettings set org.nemo.desktop network-icon-visible false
+
+	# default view mode list-view
+	gsettings set org.nemo.preferences default-folder-viewer list-view
 }

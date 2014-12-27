@@ -4,5 +4,28 @@ packages=( "terminator" )
 
 config()
 {
-    echo ""
+	dir=~/.config/terminator
+	if [[ ! -e $dir ]]; then
+		mkdir -p $dir
+	fi
+	if [[ ! -e $dir/config ]]; then
+		cat > $dir/config << EoF
+[global_config]
+[keybindings]
+group_all = <Ctrl><Super>g
+ungroup_all = <Ctrl><Shift><Super>G
+[profiles]
+  [[default]]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]
+EoF
+	fi
+	unset dir
 }

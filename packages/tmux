@@ -4,5 +4,14 @@ packages=( "tmux" )
 
 config()
 {
-    echo ""
+	file=~/.tmux.conf
+	if [[ ! -e $file ]]; then
+		echo "set-window-option -g xterm-keys on" > $file
+	else
+		grep "set-window-option -g xterm-keys on" $file
+		if [[ $? -ne 0 ]]; then
+			echo "set-window-option -g xterm-keys on" >> $file
+		fi
+	fi
+	unset file
 }

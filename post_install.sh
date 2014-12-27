@@ -49,6 +49,22 @@ main_menu()
 	unset stop
 }
 
+
+lend_passwd()
+{
+	unset passwd
+	echo "I need you to lend me your password. Rest assured that your password won't be kept after installation."
+	while [[ -z $passwd ]]; do
+		echo -n "Passwd: "
+		read -s passwd
+		./res/chkpasswd > /dev/null 2>&1
+		if [[ $? -ne 0 ]]; then
+			unset passwd
+		fi
+	done
+	echo $passwd
+}
+
 main()
 {
 	echo "+--------------------------------------+"
@@ -60,7 +76,9 @@ main()
 
 	unset stop
 	first="yes"
+	passwd=$(lend_passwd)
 	main_menu
+	unset passwd
 }
 
 . scripts/config

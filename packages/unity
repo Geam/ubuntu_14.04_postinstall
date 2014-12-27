@@ -1,0 +1,14 @@
+#!/bin/bash
+
+config()
+{
+	# virtual desktop
+	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ vsize 2
+	gsettings set org.compiz.core:/org/compiz/profiles/unity/plugins/core/ hsize 2
+
+	# dash in full screen
+	gsettings set com.canonical.Unity form-factor Netbook
+
+	# reduce launcher icon size
+	gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 32
+}

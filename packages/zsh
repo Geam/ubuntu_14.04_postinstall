@@ -4,5 +4,29 @@ packages=( "zsh" )
 
 config()
 {
-    echo ""
+	# import my zsh config and set it up
+	get_github_config
+	cd
+	if [[ -e .aliases ]]; then
+		rm .aliases
+	fi
+	if [[ -e .zsh ]]; then
+		rm -rf .zsh
+	fi
+	if [[ -e .zshrc ]]; then
+		rm .zshrc
+	fi
+	ln -s .dotfiles/.aliases
+	ln -s .dotfiles/.zsh
+	ln -s .dotfiles/.zshrc
+	cd - > /dev/null
+
+	# add completion for gsettings
+	if [[ ! -e /usr/share/zsh/functions/Completion/Linux/_gsettings ]]; then
+		wget https://raw.githubusercontent.com/jmatsuzawa/zsh-comp-gsettings/master/_gsettings
+		sudo mv _gsettings /usr/share/zsh/functions/Completion/Linux/ <<< $passwd
+	fi
+
+	# set zsh as default shell for user
+	chsh -s /bin/zsh <<< $passwd
 }

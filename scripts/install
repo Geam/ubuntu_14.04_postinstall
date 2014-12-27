@@ -3,9 +3,13 @@
 get_packages_to_install()
 {
 	files=$(find packages -mindepth 1)
+	unset packages_to_install
 	for file in $files; do
+		unset $packages
 		. $file
-		packages_to_install=( ${packages_to_install[@]} ${packages[@]} )
+		if [[ -n $packages ]]; then
+			packages_to_install=( ${packages_to_install[@]} ${packages[@]} )
+		fi
 	done
 	echo ${packages_to_install[@]}
 }
@@ -13,12 +17,13 @@ get_packages_to_install()
 to_install()
 {
 	packages=$(get_packages_to_install)
+	all="Install all favorites packages"
 	PS3="Select what you want to do: "
 	while [[ -z $stop ]]; do
-		select opt in "Install all favorites packages" ${packages[@]} "Quit"; do
+		select opt in "$all" ${packages[@]} "Quit"; do
 			echo ""
 			case $opt in
-				"Install all favorites packages")
+				"$all")
 					to_install_sub ${packages[@]}
 					;;
 				"Quit")
@@ -50,5 +55,5 @@ to_install_all()
 to_install_sub()
 {
 	echo "Installing $@"
-	sudo apt-get install -y $@
+	sudo apt-get install -y $@ <<< $passwd
 }

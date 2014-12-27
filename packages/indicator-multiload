@@ -4,5 +4,21 @@ packages=( "indicator-multiload" )
 
 config()
 {
-    echo ""
+	# launch it background
+	indicator-multiload&
+
+	# auto start indicatormultiload
+	gsettings set de.mh21.indicator.multiload.general autostart true
+
+	# enable disk graph
+	gsettings set de.mh21.indicator.multiload.graphs.disk enabled true
+
+	# enable net graph
+	gsettings set de.mh21.indicator.multiload.graphs.net enabled true
+
+	# setting net input color
+	gsettings set de.mh21.indicator.multiload.traces.net1 color '#7373d2d21616'
+
+	# setting net output color
+	gsettings set de.mh21.indicator.multiload.traces.net2 color '#cccc00000000'
 }

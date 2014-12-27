@@ -1,0 +1,16 @@
+#!/bin/bash
+
+config()
+{
+	get_github_config
+	cd
+	if [[ -e .aliases ]]; then
+		rm .aliases
+	fi
+	if [[ -e .bashrc ]]; then
+		mv .bashrc .bashrc_default
+	fi
+	ln -s .dotfiles/.aliases
+	ln -s .dotfiles/.bashrc
+	cd - > /dev/null
+}

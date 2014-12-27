@@ -4,5 +4,15 @@ packages=( "vim" "python-flake8" )
 
 config()
 {
-	echo ""
+	get_github_config
+	cd
+	if [[ -e .vim ]]; then
+		rm -rf .vim
+	fi
+	if [[ -e .vimrc ]]; then
+		rm .vimrc
+	fi
+	ln -s .dotfiles/.vim
+	ln -s .dotfiles/.vimrc
+	cd - > /dev/null
 }
