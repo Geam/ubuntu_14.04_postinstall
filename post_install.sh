@@ -64,6 +64,7 @@ main()
 }
 
 . scripts/config
-. scripts/install_remove
+. scripts/install
+. scripts/remove
 . scripts/update_upgrade
 main $@

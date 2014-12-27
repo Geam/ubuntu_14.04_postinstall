@@ -1,0 +1,44 @@
+#!/bin/bash
+
+to_remove()
+{
+	packages=$(cat datas/to_remove.list)
+	PS3="Select what you want to do: "
+	while [[ -z $stop ]]; do
+		select opt in "Remove all undesired packages" ${packages[@]} "Quit"; do
+			echo ""
+			case $opt in
+				"Remove all undesired packages")
+					to_remove_sub ${packages[@]}
+					;;
+				"Quit")
+					stop="OK"
+					;;
+				*)
+					if [[ -n $opt ]]; then
+						to_remove_sub $opt
+					else
+						echo "You fail sir"
+					fi
+					;;
+			esac
+			break
+		done
+		echo ""
+	done
+	unset packages
+	unset stop
+}
+
+to_remove_all()
+{
+	packages=$(cat datas/to_remove.list)
+	to_remove_sub ${packages[@]}
+	unset packages
+}
+
+to_remove_sub()
+{
+	echo "Deleting $@"
+	sudo apt-get remove -y $@
+}
