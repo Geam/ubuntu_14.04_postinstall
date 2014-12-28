@@ -20,4 +20,12 @@ config()
 
 	# do not show available application in depot in dash application lense
 	gsettings set com.canonical.Unity.ApplicationsLens display-available-apps false
+
+	# display date in top-right menu
+	gsettings set com.canonical.indicator.datetime show-day true
+	gsettings set com.canonical.indicator.datetime show-date true
+	gsettings set com.canonical.indicator.datetime show-year true
+
+	# display session name in top right menu
+	gsettings set com.canonical.indicator.session show-real-name-on-panel true
 }
