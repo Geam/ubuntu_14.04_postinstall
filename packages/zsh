@@ -24,7 +24,7 @@ config()
 	# add completion for gsettings
 	if [[ ! -e /usr/share/zsh/functions/Completion/Linux/_gsettings ]]; then
 		wget https://raw.githubusercontent.com/jmatsuzawa/zsh-comp-gsettings/master/_gsettings
-		sudo mv _gsettings /usr/share/zsh/functions/Completion/Linux/ <<< $passwd
+		sudo -S mv _gsettings /usr/share/zsh/functions/Completion/Linux/ <<< $passwd
 	fi
 
 	# set zsh as default shell for user
