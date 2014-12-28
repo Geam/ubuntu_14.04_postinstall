@@ -41,7 +41,7 @@ to_config()
 		select opt in "$all" ${packages[@]} "Quit"; do
 			case $opt in
 				"$all")
-					to_config_sub "${packages[@]}"
+					to_config_sub ${packages[@]}
 					;;
 				"Quit")
 					stop="OK"
@@ -65,7 +65,7 @@ to_config()
 to_config_all()
 {
 	packages=$(get_packages_to_config)
-	to_config_sub "${packages[@]}"
+	to_config_sub ${packages[@]}
 	unset packages
 }
 
@@ -76,6 +76,7 @@ to_config_sub()
 		type config > /dev/null 2>&1
 		if [[ $? -eq 0 ]]; then
 			config
+			unset -f config
 		else
 			echo "Something odd happened will configuring $file"
 		fi
