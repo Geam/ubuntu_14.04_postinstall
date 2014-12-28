@@ -11,4 +11,13 @@ config()
 
 	# reduce launcher icon size
 	gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 32
+
+	# disable web-app
+	gsettings set com.canonical.unity.webapps integration-allowed false
+
+	# disable web research in dash
+	gsettings set com.canonical.Unity.Lenses remote-content-search none
+
+	# do not show available application in depot in dash application lense
+	gsettings set com.canonical.Unity.ApplicationsLens display-available-apps false
 }
