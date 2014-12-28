@@ -5,7 +5,10 @@ packages=( "indicator-multiload" )
 config()
 {
 	# launch it background
-	indicator-multiload&
+	ps -ux | grep multiload | grep -v grep > /dev/null
+	if [[ $? -ne 0 ]]; then
+		indicator-multiload&
+	fi
 
 	# auto start indicatormultiload
 	gsettings set de.mh21.indicator.multiload.general autostart true

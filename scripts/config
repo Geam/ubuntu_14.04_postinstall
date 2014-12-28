@@ -34,10 +34,10 @@ get_packages_to_config()
 
 to_config()
 {
-	packages=$(get_packages_to_config)
 	all="Config all packages"
 	PS3="Select what you want to do: "
 	while [[ -z $stop ]]; do
+		packages=$(get_packages_to_config)
 		select opt in "$all" ${packages[@]} "Quit"; do
 			case $opt in
 				"$all")
