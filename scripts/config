@@ -62,6 +62,13 @@ to_config()
 	unset stop
 }
 
+to_config_all()
+{
+	packages=$(get_packages_to_config)
+	to_config_sub "${packages[@]}"
+	unset packages
+}
+
 to_config_sub()
 {
 	for file in "${@}"; do

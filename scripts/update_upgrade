@@ -6,7 +6,7 @@ update()
 	# if no, then do it
 	if [[ $first = "yes" ]]; then
 		echo "Update package list"
-		sudo apt-get update <<< $passwd
+		sudo apt-get update <<< "$passwd"
 		first="no"
 	fi
 }
@@ -15,5 +15,5 @@ upgrade()
 {
 	echo "Upgrade package"
 	# upgrade package
-	sudo apt-get upgrade -y <<< $passwd
+	sudo apt-get upgrade -y <<< "$passwd"
 }

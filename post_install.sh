@@ -18,7 +18,7 @@ main_menu()
 					to_install_all
 					to_remove_all
 					upgrade
-					config
+					to_config_all
 					;;
 				${options[1]})
 					update
@@ -32,7 +32,7 @@ main_menu()
 					to_remove
 					;;
 				${options[4]})
-					config
+					to_config
 					;;
 				"Quit")
 					echo "Quit"
@@ -49,22 +49,6 @@ main_menu()
 	unset stop
 }
 
-
-lend_passwd()
-{
-	unset passwd
-	echo "I need you to lend me your password. Rest assured that your password won't be kept after installation."
-	while [[ -z $passwd ]]; do
-		echo -n "Passwd: "
-		read -s passwd
-		./res/chkpasswd > /dev/null 2>&1
-		if [[ $? -ne 0 ]]; then
-			unset passwd
-		fi
-	done
-	echo $passwd
-}
-
 main()
 {
 	echo "+--------------------------------------+"
@@ -76,7 +60,16 @@ main()
 
 	unset stop
 	first="yes"
-	passwd=$(lend_passwd)
+	unset passwd
+	echo "I need you to lend me your password. Rest assured that your password won't be kept after installation."
+	while [[ -z $passwd ]]; do
+		echo -n "Passwd: "
+		read -s passwd
+		./ressources/chkpasswd $USER "$passwd"
+		if [[ $? -ne 0 ]]; then
+			unset passwd
+		fi
+	done
 	main_menu
 	unset passwd
 }

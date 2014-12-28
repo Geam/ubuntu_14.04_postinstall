@@ -55,5 +55,5 @@ to_install_all()
 to_install_sub()
 {
 	echo "Installing $@"
-	sudo apt-get install -y $@ <<< $passwd
+	sudo apt-get install -y $@ <<< "$passwd"
 }
