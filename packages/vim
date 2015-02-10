@@ -15,4 +15,9 @@ config()
 	ln -s .dotfiles/.vim
 	ln -s .dotfiles/.vimrc
 	cd - > /dev/null
+	cd $HOME/.dotfiles
+	git submodule init
+	git submodule update
+	git submodule foreach git pull origin master
+	cd - > /dev/null
 }
